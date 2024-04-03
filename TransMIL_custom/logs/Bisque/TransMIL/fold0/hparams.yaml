@@ -27,10 +27,10 @@ data: &id003 !!python/object/new:addict.addict.Dict
         - 1
       - !!python/tuple
         - num_workers
-        - 8
+        - 4
       dictitems:
         batch_size: 1
-        num_workers: 8
+        num_workers: 4
       state: *id001
   - !!python/tuple
     - test_dataloader
@@ -41,10 +41,10 @@ data: &id003 !!python/object/new:addict.addict.Dict
         - 1
       - !!python/tuple
         - num_workers
-        - 8
+        - 4
       dictitems:
         batch_size: 1
-        num_workers: 8
+        num_workers: 4
       state: *id002
   dictitems:
     data_dir: Bisque/pt_files/
@@ -85,27 +85,23 @@ optimizer: &id006 !!python/object/new:addict.addict.Dict
   args:
   - !!python/tuple
     - opt
-    - lookahead_radam
+    - lookahead_sgdp
   - !!python/tuple
     - lr
     - 0.001
-  - !!python/tuple
-    - opt_eps
-    - null
-  - !!python/tuple
-    - opt_betas
-    - null
   - !!python/tuple
     - momentum
     - 0.9
   - !!python/tuple
     - weight_decay
-    - 1.0e-05
+    - 0.0001
+  - !!python/tuple
+    - opt_eps
+    - 1.0e-08
   dictitems:
     lr: 0.001
     momentum: 0.9
-    opt: lookahead_radam
-    opt_betas: null
-    opt_eps: null
-    weight_decay: 1.0e-05
+    opt: lookahead_sgdp
+    opt_eps: 1.0e-08
+    weight_decay: 0.0001
   state: *id006
