@@ -1,0 +1,10 @@
+openslide
+delete from env file
+download binary and put ddl file in conda env
+pip install openslide-python
+
+change sthresh in biopsy to 3
+
+python create_patches_fp.py --source DATA_DIRECTORY --save_dir RESULTS_DIRECTORY --patch_size 32 --preset bwh_biopsy.csv --seg --patch
+
+python extract_features_fp.py --data_h5_dir RESULTS_DIRECTORY --data_slide_dir DATA_DIRECTORY --csv_path RESULTS_DIRECTORY/process_list_autogen.csv --feat_dir FEATURES_DIRECTORY --batch_size 64 --slide_ext .tif
