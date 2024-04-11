@@ -56,10 +56,9 @@ def main(cfg):
         num_sanity_val_steps=0, 
         logger=cfg.load_loggers,
         callbacks=cfg.callbacks,
-        # max_epochs=cfg.General.epochs,
-        max_epochs=20,
+        max_epochs=cfg.General.epochs,
         # gpus=cfg.General.gpus,
-        # amp_level=cfg.General.amp_level,
+        amp_level=cfg.General.amp_level,
         # precision=cfg.General.precision,
         accumulate_grad_batches=cfg.General.grad_acc,
         deterministic=True,
@@ -87,7 +86,6 @@ if __name__ == '__main__':
     cfg.General.gpus = args.gpus
     cfg.General.server = args.stage
     cfg.Data.fold = args.fold
-
     #---->main
     main(cfg)
  
