@@ -14,7 +14,7 @@ General:
     log_path: logs/
 
 Data:
-    dataset_name: bisque_data
+    dataset_name: camel_data
     data_shuffle: True
     data_dir: Bisque/pt_files/
     label_dir: Bisque/
