@@ -70,7 +70,7 @@ class TransMIL(nn.Module):
 
         #---->cls_token
         B = h.shape[0]
-        # cls_tokens = self.cls_token.expand(B, -1, -1).cuda()
+        #cls_tokens = self.cls_token.expand(B, -1, -1).cuda()
         cls_tokens = self.cls_token.expand(B, -1, -1)
         h = torch.cat((cls_tokens, h), dim=1)
 
@@ -94,8 +94,8 @@ class TransMIL(nn.Module):
         return results_dict
 
 if __name__ == "__main__":
-    # data = torch.randn((1, 6000, 1024)).cuda()
-    # model = TransMIL(n_classes=2).cuda()
+    #data = torch.randn((1, 6000, 1024)).cuda()
+    #model = TransMIL(n_classes=2).cuda()
     data = torch.randn((1, 6000, 1024))
     model = TransMIL(n_classes=2)
     print(model.eval())

@@ -9,7 +9,7 @@ General:
     epochs: &epoch 200 
     grad_acc: 2
     frozen_bn: False
-    patience: 15
+    patience: 20
     server: test #train #test
     log_path: logs/
 
@@ -35,11 +35,11 @@ Model:
 
 
 Optimizer:
-    opt: lookahead_radam
+    opt: lookahead_sgdp
     lr: 0.001
     opt_eps: null 
     opt_betas: null
-    momentum: 0.9
+    momentum: 0.5
     weight_decay: 0.00001
 
 Loss:

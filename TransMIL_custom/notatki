@@ -9,10 +9,14 @@ pip install -r requirements.txt
 
 change q *= scale to q = q * self.scale in nystrom_attention.py
 
+
 to train on cpu:
 python train.py --stage='train' --config='Bisque/TransMIL.yaml' --fold=0
 #python train.py --stage='train' --config='Camelyon/TransMIL.yaml' --fold=0
 
 to train on gpu:
-python train.py --stage='train' --config='Camelyon/TransMIL.yaml'  --gpus=1 --fold=0
-(or gpus=0 idk)
+change Transmil.yaml gpus = [0]
+
+python train.py --stage='train' --config='Bisque/TransMIL.yaml'  --gpus=0 --fold=0
+#python train.py --stage='train' --config='Camelyon/TransMIL.yaml'  --gpus=1 --fold=0
+#(or gpus=0 idk)
