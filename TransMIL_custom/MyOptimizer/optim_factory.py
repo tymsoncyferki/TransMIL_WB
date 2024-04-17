@@ -55,7 +55,7 @@ def create_optimizer(args, model, filter_bias_and_bn=True):
     opt_args = dict(lr=args.lr, weight_decay=weight_decay)
     if hasattr(args, 'opt_eps') and args.opt_eps is not None:
         opt_args['eps'] = args.opt_eps
-    if hasattr(args, 'opt_betas') and args.opt_betas is not None:
+    if hasattr(args, 'opt_betas') and args.opt_betas is not None and args.opt_betas != {}:
         opt_args['betas'] = args.opt_betas
     # if hasattr(args, 'opt_args') and args.opt_args is not None:
     #     opt_args.update(args.opt_args)
