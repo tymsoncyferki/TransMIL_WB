@@ -1,0 +1,14 @@
+{
+    "loss": {
+        "base_loss": "CrossEntropyLoss"
+    },
+    "optimizer": {
+        "opt": "lookahead_sgdp",
+        "lr": 0.001,
+        "momentum": 0.9,
+        "weight_decay": 0.0001,
+        "opt_eps": 1e-08
+    },
+    "time_train": 332.18426847457886,
+    "time_test": 3.0066962242126465
+}

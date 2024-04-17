@@ -1,0 +1,109 @@
+data: &id003 !!python/object/new:addict.addict.Dict
+  args:
+  - !!python/tuple
+    - dataset_name
+    - camel_data
+  - !!python/tuple
+    - data_shuffle
+    - true
+  - !!python/tuple
+    - data_dir
+    - Bisque/pt_files/
+  - !!python/tuple
+    - label_dir
+    - Bisque/
+  - !!python/tuple
+    - fold
+    - '0'
+  - !!python/tuple
+    - nfold
+    - 4
+  - !!python/tuple
+    - train_dataloader
+    - &id001 !!python/object/new:addict.addict.Dict
+      args:
+      - !!python/tuple
+        - batch_size
+        - 1
+      - !!python/tuple
+        - num_workers
+        - 4
+      dictitems:
+        batch_size: 1
+        num_workers: 4
+      state: *id001
+  - !!python/tuple
+    - test_dataloader
+    - &id002 !!python/object/new:addict.addict.Dict
+      args:
+      - !!python/tuple
+        - batch_size
+        - 1
+      - !!python/tuple
+        - num_workers
+        - 4
+      dictitems:
+        batch_size: 1
+        num_workers: 4
+      state: *id002
+  dictitems:
+    data_dir: Bisque/pt_files/
+    data_shuffle: true
+    dataset_name: camel_data
+    fold: '0'
+    label_dir: Bisque/
+    nfold: 4
+    test_dataloader: *id002
+    train_dataloader: *id001
+  state: *id003
+log: !!python/object/apply:pathlib.WindowsPath
+- logs
+- Bisque
+- TransMIL
+- fold0
+loss: &id004 !!python/object/new:addict.addict.Dict
+  args:
+  - !!python/tuple
+    - base_loss
+    - MSELoss
+  dictitems:
+    base_loss: MSELoss
+  state: *id004
+model: &id005 !!python/object/new:addict.addict.Dict
+  args:
+  - !!python/tuple
+    - name
+    - TransMIL
+  - !!python/tuple
+    - n_classes
+    - 2
+  dictitems:
+    n_classes: 2
+    name: TransMIL
+  state: *id005
+optimizer: &id007 !!python/object/new:addict.addict.Dict
+  args:
+  - !!python/tuple
+    - opt
+    - lookahead_radam
+  - !!python/tuple
+    - lr
+    - 0.001
+  - !!python/tuple
+    - weight_decay
+    - 0.0001
+  - !!python/tuple
+    - opt_betas
+    - &id006 !!python/tuple
+      - 0.9
+      - 0.999
+  - !!python/tuple
+    - opt_eps
+    - 1.0e-08
+  dictitems:
+    lr: 0.001
+    opt: lookahead_radam
+    opt_betas: *id006
+    opt_eps: 1.0e-08
+    weight_decay: 0.0001
+  state: *id007
