@@ -15,15 +15,17 @@ def extract_label_bisque(filename):
 def extract_label_brecahad(filename):
     if "apoptosis" in filename:
         return 1
-    else:
+    elif "Case" in filename:
         return 0
+    else:
+        raise ValueError("File is not from BreCaHAD dataset")
 
 
 """ Config """
 TRAIN_PERCENT = 0.65
 VAL_PERCENT = 0.15
 FOLDER_PATH = "BreCaHAD/pt_files"
-OUTPUT_FILENAME = "BreCaHAD/fold0.csv"
+OUTPUT_FILENAME = "BreCaHAD/fold2.csv"
 EXTRACT_FUNCTION = extract_label_brecahad
 
 

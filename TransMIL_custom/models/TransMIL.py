@@ -93,6 +93,7 @@ class TransMIL(nn.Module):
         results_dict = {'logits': logits, 'Y_prob': Y_prob, 'Y_hat': Y_hat}
         return results_dict
 
+
 if __name__ == "__main__":
     # data = torch.randn((1, 6000, 1024)).cuda()
     # model = TransMIL(n_classes=2).cuda()
