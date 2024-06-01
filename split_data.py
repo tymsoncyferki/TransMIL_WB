@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 
-def extract_label(filename):
+def extract_label_bisque(filename):
     if "malignant" in filename:
         return 1
     elif "benign" in filename:
@@ -12,7 +12,22 @@ def extract_label(filename):
         raise ValueError("Filename does not contain 'malignant' or 'benign'")
 
 
-def train_val_test_split(file_names, train_percent=0.7, val_percent=0.15, test_percent=0.15):
+def extract_label_brecahad(filename):
+    if "apoptosis" in filename:
+        return 1
+    else:
+        return 0
+
+
+""" Config """
+TRAIN_PERCENT = 0.65
+VAL_PERCENT = 0.15
+FOLDER_PATH = "BreCaHAD/pt_files"
+OUTPUT_FILENAME = "BreCaHAD/fold0.csv"
+EXTRACT_FUNCTION = extract_label_brecahad
+
+
+def train_val_test_split(file_names, train_percent=TRAIN_PERCENT, val_percent=VAL_PERCENT):
     random.shuffle(file_names)
     total_files = len(file_names)
     train_end = int(total_files * train_percent)
@@ -25,33 +40,31 @@ def train_val_test_split(file_names, train_percent=0.7, val_percent=0.15, test_p
     return train_files, val_files, test_files
 
 
-def main():
-    # Path to the folder containing images
-    folder_path = "pt_files"
+def main(folder_path, filename, extract_function):
+    """
+    :param folder_path: folder with pt files
+    :param filename: output file path
+    :param extract_function: function to classify each file
+    :return: saves csv with fold
+    """
 
-    # Get list of image file names (without extensions)
+    # image file names without extensions
     file_names = [os.path.splitext(file)[0] for file in os.listdir(folder_path)]
 
-    # Perform train-val-test split
     train_files, val_files, test_files = train_val_test_split(file_names)
 
-    # Extract labels for train, val, and test sets
-    train_labels = [extract_label(filename) for filename in train_files]
-    val_labels = [extract_label(filename) for filename in val_files]
-    test_labels = [extract_label(filename) for filename in test_files]
+    train_labels = [extract_function(filename) for filename in train_files]
+    val_labels = [extract_function(filename) for filename in val_files]
+    test_labels = [extract_function(filename) for filename in test_files]
 
-    # Calculate lengths of val and test sets
     val_length = max(len(train_files), len(val_files))
     test_length = max(len(train_files), len(test_files))
 
-    # Append blank values to val and test sets to make them the same length
     val_files += [''] * (val_length - len(val_files))
     val_labels += [None] * (val_length - len(val_labels))
-
     test_files += [''] * (test_length - len(test_files))
     test_labels += [None] * (test_length - len(test_labels))
 
-    # Create DataFrame
     data = {
         'train': train_files,
         'train_label': train_labels,
@@ -62,10 +75,8 @@ def main():
     }
 
     df = pd.DataFrame(data)
-
-    # Save DataFrame to CSV
-    df.to_csv('fold0.csv')
+    df.to_csv(filename)
 
 
 if __name__ == "__main__":
-    main()
+    main(FOLDER_PATH, OUTPUT_FILENAME, EXTRACT_FUNCTION)
