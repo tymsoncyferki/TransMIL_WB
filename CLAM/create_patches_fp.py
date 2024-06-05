@@ -77,10 +77,10 @@ def seg_and_patch(source, save_dir, patch_save_dir, mask_save_dir, stitch_save_d
 	legacy_support = 'a' in df.keys()
 	if legacy_support:
 		print('detected legacy segmentation csv file, legacy support enabled')
-		df = df.assign(**{'a_t': np.full((len(df)), int(filter_params['a_t']), dtype=np.uint32),
-		'a_h': np.full((len(df)), int(filter_params['a_h']), dtype=np.uint32),
-		'max_n_holes': np.full((len(df)), int(filter_params['max_n_holes']), dtype=np.uint32),
-		'line_thickness': np.full((len(df)), int(vis_params['line_thickness']), dtype=np.uint32),
+		df = df.assign(**{'a_t': np.full((len(df)), int(filter_params['a_t']), dtype=np.uint64),
+		'a_h': np.full((len(df)), int(filter_params['a_h']), dtype=np.uint64),
+		'max_n_holes': np.full((len(df)), int(filter_params['max_n_holes']), dtype=np.uint64),
+		'line_thickness': np.full((len(df)), int(vis_params['line_thickness']), dtype=np.uint64),
 		'contour_fn': np.full((len(df)), patch_params['contour_fn'])})
 
 	seg_times = 0.

@@ -55,9 +55,9 @@ parser.add_argument('--slide_ext', type=str, default= '.svs')
 parser.add_argument('--csv_path', type=str, default=None)
 parser.add_argument('--feat_dir', type=str, default=None)
 parser.add_argument('--model_name', type=str, default='resnet50_trunc', choices=['resnet50_trunc', 'uni_v1', 'conch_v1'])
-parser.add_argument('--batch_size', type=int, default=256)
+parser.add_argument('--batch_size', type=int, default=64)
 parser.add_argument('--no_auto_skip', default=False, action='store_true')
-parser.add_argument('--target_patch_size', type=int, default=224)
+parser.add_argument('--target_patch_size', type=int, default=64)
 args = parser.parse_args()
 
 

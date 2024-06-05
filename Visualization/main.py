@@ -9,14 +9,14 @@ import numpy as np
 
 parser = argparse.ArgumentParser(description='Create heatmaps')
 # use clam create_feature_fp.py you can get .h5 file
-parser.add_argument('--h5_path', type=str, default='h5-files/')
+parser.add_argument('--h5_path', type=str, default='h5_files/')
 # thumbnail img dir
 parser.add_argument('--thumbnail_path', type=str, default='images/')
 # mean min max
 parser.add_argument('--head_fusion', type=str, default='mean')
 parser.add_argument('--model_path', type=str, default='')
 parser.add_argument('--model_name', type=str, default='TransMIL')
-parser.add_argument('--device', type=str, default='cuda:0')
+parser.add_argument('--device', type=str, default='cpu')
 # Determine the maximum size of the wsi using qupath, divide this size by the thumbnail size
 # int
 parser.add_argument('--downsample', type=int, default=1)
@@ -27,7 +27,7 @@ args = parser.parse_args()
 
 def load_model(model_name, mode_path):
     if model_name == 'TransMIL':
-        param = torch.load(mode_path)['state_dict']
+        param = torch.load(mode_path, map_location=torch.device('cpu'))['state_dict']
         new_param = {k[6:]: v for k, v in param.items()}
         model = TransMIL(n_classes=2, head_fusion=args.head_fusion)
         model.load_state_dict(new_param)
@@ -57,17 +57,17 @@ def main(args):
             attn = attn / (attn.max())
             result = ((attn * result) + result) / 2
         attns = result[0, 1:].to('cpu')
-        if int(results_dict['Y_hat']) == 1:
-            epsilon = 1e-10
-            attns = attns + epsilon
-            attns = attns.exp()
-            min_val = attns.min()
-            max_val = attns.max()
-            attns = (attns - min_val) / (max_val - min_val)
-        else:
-            # attns = attns.max()
-            # attns = attns * 0.1
-            continue
+        # if int(results_dict['Y_hat']) == 1:
+        epsilon = 1e-10
+        attns = attns + epsilon
+        attns = attns.exp()
+        min_val = attns.min()
+        max_val = attns.max()
+        attns = (attns - min_val) / (max_val - min_val)
+        # else:
+        #     # attns = attns.max()
+        #     # attns = attns * 0.1
+        #     continue
 
         downsample = args.downsample
         downsample_patchsize = int(args.patch_size // downsample)
@@ -89,7 +89,7 @@ def main(args):
         heatmap = np.float32(heatmap) / 255
         cam = heatmap + np.float32(img)
         cam = cam / np.max(cam)
-        savepath1 = "out/out1/" + img_path[7:]
+        savepath1 = "out/out_norm/" + img_path[7:]
         # savepath2 = "out/out2/" + img_path[7:]
         cv2.imwrite(savepath1, np.uint8(255 * cam))
         # cv2.imwrite(savepath2, heatmap * 255)

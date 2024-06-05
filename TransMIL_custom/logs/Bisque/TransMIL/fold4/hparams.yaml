@@ -1,0 +1,111 @@
+data: &id003 !!python/object/new:addict.addict.Dict
+  args:
+  - !!python/tuple
+    - dataset_name
+    - camel_data
+  - !!python/tuple
+    - data_shuffle
+    - true
+  - !!python/tuple
+    - data_dir
+    - Bisque/pt_files/
+  - !!python/tuple
+    - label_dir
+    - Bisque/
+  - !!python/tuple
+    - fold
+    - '4'
+  - !!python/tuple
+    - nfold
+    - 4
+  - !!python/tuple
+    - train_dataloader
+    - &id001 !!python/object/new:addict.addict.Dict
+      args:
+      - !!python/tuple
+        - batch_size
+        - 1
+      - !!python/tuple
+        - num_workers
+        - 8
+      dictitems:
+        batch_size: 1
+        num_workers: 8
+      state: *id001
+  - !!python/tuple
+    - test_dataloader
+    - &id002 !!python/object/new:addict.addict.Dict
+      args:
+      - !!python/tuple
+        - batch_size
+        - 1
+      - !!python/tuple
+        - num_workers
+        - 8
+      dictitems:
+        batch_size: 1
+        num_workers: 8
+      state: *id002
+  dictitems:
+    data_dir: Bisque/pt_files/
+    data_shuffle: true
+    dataset_name: camel_data
+    fold: '4'
+    label_dir: Bisque/
+    nfold: 4
+    test_dataloader: *id002
+    train_dataloader: *id001
+  state: *id003
+log: !!python/object/apply:pathlib.WindowsPath
+- logs
+- Bisque
+- TransMIL
+- fold4
+loss: &id004 !!python/object/new:addict.addict.Dict
+  args:
+  - !!python/tuple
+    - base_loss
+    - CrossEntropyLoss
+  dictitems:
+    base_loss: CrossEntropyLoss
+  state: *id004
+model: &id005 !!python/object/new:addict.addict.Dict
+  args:
+  - !!python/tuple
+    - name
+    - TransMIL
+  - !!python/tuple
+    - n_classes
+    - 2
+  dictitems:
+    n_classes: 2
+    name: TransMIL
+  state: *id005
+optimizer: &id006 !!python/object/new:addict.addict.Dict
+  args:
+  - !!python/tuple
+    - opt
+    - lookahead_radam
+  - !!python/tuple
+    - lr
+    - 0.001
+  - !!python/tuple
+    - opt_eps
+    - null
+  - !!python/tuple
+    - opt_betas
+    - null
+  - !!python/tuple
+    - momentum
+    - 0.9
+  - !!python/tuple
+    - weight_decay
+    - 1.0e-05
+  dictitems:
+    lr: 0.001
+    momentum: 0.9
+    opt: lookahead_radam
+    opt_betas: null
+    opt_eps: null
+    weight_decay: 1.0e-05
+  state: *id006

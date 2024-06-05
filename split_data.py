@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import random
-
+random.seed(10)
 
 def extract_label_bisque(filename):
     if "malignant" in filename:
@@ -24,9 +24,9 @@ def extract_label_brecahad(filename):
 """ Config """
 TRAIN_PERCENT = 0.65
 VAL_PERCENT = 0.15
-FOLDER_PATH = "BreCaHAD/pt_files"
-OUTPUT_FILENAME = "BreCaHAD/fold2.csv"
-EXTRACT_FUNCTION = extract_label_brecahad
+FOLDER_PATH = "TransMIL_custom/Bisque/pt_files"
+OUTPUT_FILENAME = "TransMIL_custom/Bisque/fold4.csv"
+EXTRACT_FUNCTION = extract_label_bisque
 
 
 def train_val_test_split(file_names, train_percent=TRAIN_PERCENT, val_percent=VAL_PERCENT):

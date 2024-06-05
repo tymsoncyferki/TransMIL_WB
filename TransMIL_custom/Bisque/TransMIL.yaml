@@ -18,7 +18,7 @@ Data:
     data_shuffle: True
     data_dir: Bisque/pt_files/
     label_dir: Bisque/
-    fold: 0
+    fold: 4
     nfold: 4
 
     train_dataloader:
