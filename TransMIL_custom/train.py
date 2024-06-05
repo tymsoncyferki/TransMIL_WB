@@ -84,6 +84,9 @@ def test(cfg, name, loss, **kwargs):
     import shutil
     import sys
     import warnings
+    import glob
+    import re
+    from pathlib import Path
     from addict import Dict
     
     warnings.simplefilter("ignore")
@@ -126,6 +129,23 @@ def test(cfg, name, loss, **kwargs):
     os.makedirs(os.path.join(base_dir, name), exist_ok=True)
     os.rename(os.path.join(base_dir, "fold0", "metrics.csv"), os.path.join(base_dir, name, "metrics.csv"))
     os.rename(os.path.join(base_dir, "fold0", "result.csv"), os.path.join(base_dir, name, "result.csv"))
+    
+    directory = Path(os.path.join(base_dir, "fold0"))
+    files = glob.glob(str(directory / "epoch=*"))
+    pattern = re.compile(r"epoch=(\d+)-")
+    
+    largest_epoch = -1
+    largest_epoch_file = None
+    for file_ in files:
+        match = pattern.search(file_)
+        if match:
+            epoch = int(match.group(1))
+            if epoch > largest_epoch:
+                largest_epoch = epoch
+                largest_epoch_file = os.path.basename(file_)
+    if largest_epoch_file is not None:
+        os.rename(os.path.join(base_dir, "fold0", largest_epoch_file), os.path.join(base_dir, name, largest_epoch_file))
+    
     with open(os.path.join(base_dir, name, "cfg.json"), 'w', encoding='utf-8') as f:
         json.dump(opts, f, ensure_ascii=False, indent=4)
     shutil.rmtree(os.path.join(base_dir, "fold0"))
@@ -140,8 +160,14 @@ if __name__ == "__main__":
         # "SmoothL1Loss",
         # "focal",
     ):
+        i = 0
         for opts in (
-            {"opt": "lookahead_radam", "lr": 0.0001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
+            {"opt": "lookahead_radam", "lr": 0.00001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.9999), "opt_eps": 1e-08},
+            {"opt": "lookahead_radam", "lr": 0.0005, "weight_decay": 0.0001, "opt_betas": (0.9, 0.9999), "opt_eps": 1e-08},
+            # {"opt": "lookahead_radam", "lr": 0.0001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
+            # {"opt": "lookahead_radam", "lr": 0.0001, "weight_decay": 0.0001, "opt_betas": (0.8, 0.9), "opt_eps": 1e-06},
+            # {"opt": "lookahead_radam", "lr": 0.0001, "weight_decay": 0.001, "opt_betas": (0.8, 0.9), "opt_eps": 1e-06},
+            # {"opt": "lookahead_radam", "lr": 0.0001, "weight_decay": 0.001, "opt_betas": (0.9, 0.9), "opt_eps": 1e-08},
             # {"opt": "lookahead_radam", "lr": 0.001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
             # {"opt": "lookahead_radam", "lr": 0.01, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
             # {"opt": "lookahead_novograd", "lr": 0.001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
@@ -150,9 +176,11 @@ if __name__ == "__main__":
             # {"opt": "lookahead_adadelta", "lr": 0.01, "weight_decay": 0.0001, "opt_eps": 1e-08},
             # {"opt": "lookahead_sgdp", "lr": 0.001, "momentum":0.9, "weight_decay": 0.0001, "opt_eps": 1e-08},
         ):
-            name = loss.lower() + "_" + opts["opt"] + "_" + str(opts["lr"])
+            name = loss.lower() + "_" + opts["opt"] + "_" + str(opts["lr"]) + "_" + str(i)
             print(f"Starting for name {name}")
             test(cfg.copy(), name, loss, **opts)
+            i += 1
+            # break
 
 # if __name__ == '__main__':  
 
