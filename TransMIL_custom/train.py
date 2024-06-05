@@ -88,7 +88,8 @@ def test(cfg, name, loss, **kwargs):
     
     warnings.simplefilter("ignore")
 
-    base_dir = "logs\Bisque\TransMIL"
+    # base_dir = "logs\Bisque\TransMIL"
+    base_dir = "logs\Bisque_Breast\TransMIL"
     f = open('nul', 'w')
 
     cfg.Optimizer = Dict(kwargs)
@@ -140,6 +141,7 @@ if __name__ == "__main__":
         # "focal",
     ):
         for opts in (
+            {"opt": "lookahead_radam", "lr": 0.0001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
             {"opt": "lookahead_radam", "lr": 0.001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
             {"opt": "lookahead_radam", "lr": 0.01, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
             {"opt": "lookahead_novograd", "lr": 0.001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},

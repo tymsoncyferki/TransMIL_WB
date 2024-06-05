@@ -1,0 +1,13 @@
+{
+    "loss": {
+        "base_loss": "CrossEntropyLoss"
+    },
+    "optimizer": {
+        "opt": "lookahead_adadelta",
+        "lr": 0.01,
+        "weight_decay": 0.0001,
+        "opt_eps": 1e-08
+    },
+    "time_train": 649.7113454341888,
+    "time_test": 2.3053481578826904
+}

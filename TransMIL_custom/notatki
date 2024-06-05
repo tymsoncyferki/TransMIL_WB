@@ -18,3 +18,5 @@ python train.py --stage='train' --config='Bisque/TransMIL.yaml'  --gpus=1 --fold
 
 to test:
 python train.py --stage='test' --config='Bisque/TransMIL.yaml' --fold=0
+
+# cd Downloads\TransMIL_WB\TransMIL_custom && conda activate transmil && python train.py --stage='train' --config=Bisque_Breast/TransMIL.yaml --gpus=0 --fold=0
