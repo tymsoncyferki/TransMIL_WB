@@ -19,7 +19,7 @@ Data:
     data_shuffle: True
     data_dir: ./../BISQUE_BREAST_NORMALIZED/pt_files/
     label_dir: ./../BISQUE_BREAST_NORMALIZED/
-    fold: 0
+    fold: 1
     nfold: 4
 
     train_dataloader:
