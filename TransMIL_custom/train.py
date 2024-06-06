@@ -92,7 +92,7 @@ def test(cfg, name, loss, **kwargs):
     warnings.simplefilter("ignore")
 
     # base_dir = "logs\Bisque\TransMIL"
-    base_dir = "logs\Bisque_Breast\TransMIL"
+    base_dir = "logs\BreCaHAD\TransMIL"
     f = open('nul', 'w')
 
     cfg.Optimizer = Dict(kwargs)
@@ -162,19 +162,19 @@ if __name__ == "__main__":
     ):
         i = 0
         for opts in (
-            {"opt": "lookahead_radam", "lr": 0.00001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.9999), "opt_eps": 1e-08},
+            # {"opt": "lookahead_radam", "lr": 0.00001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.9999), "opt_eps": 1e-08},
             {"opt": "lookahead_radam", "lr": 0.0005, "weight_decay": 0.0001, "opt_betas": (0.9, 0.9999), "opt_eps": 1e-08},
-            # {"opt": "lookahead_radam", "lr": 0.0001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
-            # {"opt": "lookahead_radam", "lr": 0.0001, "weight_decay": 0.0001, "opt_betas": (0.8, 0.9), "opt_eps": 1e-06},
-            # {"opt": "lookahead_radam", "lr": 0.0001, "weight_decay": 0.001, "opt_betas": (0.8, 0.9), "opt_eps": 1e-06},
-            # {"opt": "lookahead_radam", "lr": 0.0001, "weight_decay": 0.001, "opt_betas": (0.9, 0.9), "opt_eps": 1e-08},
-            # {"opt": "lookahead_radam", "lr": 0.001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
-            # {"opt": "lookahead_radam", "lr": 0.01, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
-            # {"opt": "lookahead_novograd", "lr": 0.001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
-            # {"opt": "lookahead_novograd", "lr": 0.01, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
-            # {"opt": "lookahead_adadelta", "lr": 0.001, "weight_decay": 0.0001, "opt_eps": 1e-08},
-            # {"opt": "lookahead_adadelta", "lr": 0.01, "weight_decay": 0.0001, "opt_eps": 1e-08},
-            # {"opt": "lookahead_sgdp", "lr": 0.001, "momentum":0.9, "weight_decay": 0.0001, "opt_eps": 1e-08},
+            {"opt": "lookahead_radam", "lr": 0.0001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
+            {"opt": "lookahead_radam", "lr": 0.0001, "weight_decay": 0.0001, "opt_betas": (0.8, 0.9), "opt_eps": 1e-06},
+            {"opt": "lookahead_radam", "lr": 0.0001, "weight_decay": 0.001, "opt_betas": (0.8, 0.9), "opt_eps": 1e-06},
+            {"opt": "lookahead_radam", "lr": 0.0001, "weight_decay": 0.001, "opt_betas": (0.9, 0.9), "opt_eps": 1e-08},
+            {"opt": "lookahead_radam", "lr": 0.001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
+            {"opt": "lookahead_radam", "lr": 0.01, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
+            {"opt": "lookahead_novograd", "lr": 0.001, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
+            {"opt": "lookahead_novograd", "lr": 0.01, "weight_decay": 0.0001, "opt_betas": (0.9, 0.999), "opt_eps": 1e-08},
+            {"opt": "lookahead_adadelta", "lr": 0.001, "weight_decay": 0.0001, "opt_eps": 1e-08},
+            {"opt": "lookahead_adadelta", "lr": 0.01, "weight_decay": 0.0001, "opt_eps": 1e-08},
+            {"opt": "lookahead_sgdp", "lr": 0.001, "momentum":0.9, "weight_decay": 0.0001, "opt_eps": 1e-08},
         ):
             name = loss.lower() + "_" + opts["opt"] + "_" + str(opts["lr"]) + "_" + str(i)
             print(f"Starting for name {name}")
